@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Dawit Tesfaye</title>
+  <meta name="description" content="A personal portfolio for Dawit Tesfaye, a product designer and UI/UX designer living in Ethiopia." />
+  <meta property="og:title" content="Dawit Tesfaye — Product & UI/UX Designer" />
+  <meta property="og:description" content="Product & UI/UX Designer focused on clear, scalable digital experiences across web, mobile, and interactive products." />
+  <meta property="og:image" content="assets/img/shot-vita-hero.png" />
+  <meta name="theme-color" content="#1b4f8a" />
+  <link rel="icon" href="assets/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fragment+Mono&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- Boot screen -->
+  <div id="boot" aria-hidden="true">
+    <svg class="boot-logo" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M14 8h17c14.4 0 24 9.6 24 24S45.4 56 31 56H14V8zm10 9v30h7c8.6 0 14-5.9 14-15s-5.4-15-14-15h-7z" fill="currentColor"/>
+    </svg>
+    <div class="boot-bar"><span></span></div>
+  </div>
+
+  <!-- Operating system picker + per-OS boot splash -->
+  <div id="picker" hidden></div>
+  <div id="os-splash" hidden aria-hidden="true"></div>
+
+  <div id="wallpaper"></div>
+  <div id="dimmer"></div>
+
+  <!-- Menu bar -->
+  <header id="menubar">
+    <nav class="mb-left" aria-label="Menu bar">
+      <button class="mb-item mb-logo" data-menu="system" aria-label="System menu">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 8h17c14.4 0 24 9.6 24 24S45.4 56 31 56H14V8zm10 9v30h7c8.6 0 14-5.9 14-15s-5.4-15-14-15h-7z" fill="currentColor"/></svg>
+      </button>
+      <button class="mb-item mb-app" data-menu="app">Dawit Tesfaye</button>
+      <button class="mb-item mb-hide-sm" data-menu="file">File</button>
+      <button class="mb-item mb-hide-sm" data-menu="edit">Edit</button>
+      <button class="mb-item mb-hide-sm" data-menu="view">View</button>
+      <button class="mb-item mb-hide-sm" data-menu="go">Go</button>
+      <button class="mb-item mb-hide-sm" data-menu="window">Window</button>
+      <button class="mb-item mb-hide-sm" data-menu="help">Help</button>
+    </nav>
+    <div class="mb-right">
+      <span class="mb-status mb-hide-sm" id="mb-music" hidden aria-hidden="true">
+        <span class="eq"><i></i><i></i><i></i></span>
+      </span>
+      <span class="mb-status mb-hide-sm" aria-label="Battery 100%">
+        <svg viewBox="0 0 28 14" width="25" height="12" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="13" rx="3.5" fill="none" stroke="currentColor" opacity=".45"/><rect x="2.5" y="2.5" width="19" height="9" rx="2" fill="currentColor"/><path d="M25.5 5v4c.9-.3 1.5-1.1 1.5-2s-.6-1.7-1.5-2z" fill="currentColor" opacity=".45"/></svg>
+      </span>
+      <span class="mb-status mb-hide-sm" aria-label="Wi-Fi connected">
+        <svg viewBox="0 0 20 15" width="17" height="13" aria-hidden="true"><path fill="currentColor" d="M10 2.3c3 0 5.8 1.2 7.8 3.2l1.4-1.5C16.8 1.6 13.5.2 10 .2S3.2 1.6.8 4l1.4 1.5c2-2 4.8-3.2 7.8-3.2zm0 4.2c1.9 0 3.6.7 4.9 2l1.4-1.5C14.6 5.3 12.4 4.4 10 4.4S5.4 5.3 3.7 7l1.4 1.5c1.3-1.3 3-2 4.9-2zm0 4.2c.8 0 1.5.3 2 .8L10 13.7l-2-2.2c.5-.5 1.2-.8 2-.8z"/></svg>
+      </span>
+      <button class="mb-item mb-icon mb-hide-sm" id="mb-spotlight" aria-label="Spotlight search (⌘K)">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="6.5" cy="6.5" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.3 10.3 15 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <button class="mb-item mb-icon" id="mb-cc" aria-label="Control Center">
+        <svg viewBox="0 0 18 14" width="16" height="13" aria-hidden="true"><rect x="1" y="1" width="16" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="13.5" cy="3.5" r="1.6" fill="currentColor"/><rect x="1" y="8" width="16" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="4.5" cy="10.5" r="1.6" fill="currentColor"/></svg>
+      </button>
+      <button class="mb-item mb-clock" id="mb-clock" aria-label="Date and time">
+        <span id="mb-date">Mon 9 Sep</span><span id="mb-time">08:47</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Dynamic Island music player -->
+  <div id="island" tabindex="0" role="region" aria-label="Now playing">
+    <div class="isl-compact">
+      <img class="isl-art-sm" alt="" />
+      <span class="isl-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </div>
+    <div class="isl-full">
+      <div class="isl-top">
+        <img class="isl-art" alt="Album artwork" />
+        <div class="isl-meta">
+          <span class="isl-title"></span>
+          <span class="isl-artist"></span>
+        </div>
+        <span class="isl-bars isl-bars-lg" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="isl-progress">
+        <span class="isl-cur">0:00</span>
+        <div class="isl-track" role="slider" aria-label="Seek" tabindex="0"><span class="isl-fill"></span></div>
+        <span class="isl-dur">0:00</span>
+      </div>
+      <div class="isl-controls">
+        <button class="isl-btn" data-act="back" aria-label="Back 10 seconds"><svg viewBox="0 0 24 24"><path d="M11.8 6.6c0-.9-1-1.5-1.8-1L3.6 10c-.7.5-.7 1.5 0 2l6.4 4.4c.8.5 1.8-.1 1.8-1V6.6zm8.2 0c0-.9-1-1.5-1.8-1L11.8 10c-.7.5-.7 1.5 0 2l6.4 4.4c.8.5 1.8-.1 1.8-1V6.6z" fill="currentColor"/></svg></button>
+        <button class="isl-btn isl-play" data-act="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M7 4.8v14.4c0 .8.9 1.3 1.6.9l11.4-7.2c.6-.4.6-1.4 0-1.8L8.6 3.9C7.9 3.5 7 4 7 4.8z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4.5" height="16" rx="1.2" fill="currentColor"/><rect x="13.5" y="4" width="4.5" height="16" rx="1.2" fill="currentColor"/></svg></button>
+        <button class="isl-btn" data-act="fwd" aria-label="Forward 10 seconds"><svg viewBox="0 0 24 24"><path d="M4 6.6c0-.9 1-1.5 1.8-1l6.4 4.4c.7.5.7 1.5 0 2l-6.4 4.4c-.8.5-1.8-.1-1.8-1V6.6zm8.2 0c0-.9 1-1.5 1.8-1l6.4 4.4c.7.5.7 1.5 0 2L14 16.4c-.8.5-1.8-.1-1.8-1V6.6z" fill="currentColor"/></svg></button>
+      </div>
+    </div>
+    <audio id="audio" preload="none" loop></audio>
+  </div>
+
+  <!-- Desktop -->
+  <main id="desktop" aria-label="Desktop">
+    <div id="icons"></div>
+    <div id="selection-rect" hidden></div>
+  </main>
+
+  <div id="windows"></div>
+
+  <!-- Windows taskbar -->
+  <nav id="taskbar" aria-label="Taskbar"></nav>
+
+  <!-- Linux top bar + dock -->
+  <header id="topbar"></header>
+  <nav id="ldock" aria-label="Dock"></nav>
+
+  <!-- macOS Dock -->
+  <div id="dock-wrap">
+    <nav id="dock" aria-label="Dock"></nav>
+  </div>
+
+  <!-- Overlays -->
+  <div id="menu-layer"></div>
+  <div id="notifications" aria-live="polite"></div>
+
+  <div id="launcher" hidden></div>
+
+  <div id="cc-panel" hidden></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
